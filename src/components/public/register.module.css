@@ -1,0 +1,130 @@
+.background {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #2283c9;
+}
+
+.container {
+  padding: 20px;
+  background-color: white;
+  width: 600px;
+  border: 1px solid #bbcef2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 25px;
+  box-shadow: 3px 3px 10px;
+}
+
+.logo_container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+}
+
+.logo {
+  width: auto;
+  height: 40px;
+  margin: 5px 5px 0px 5px;
+}
+
+.company_name {
+  color: #2283c9;
+  font-family: Verdana;
+  font-weight: bold;
+  font-size: 2.2rem;
+  margin: 0px;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.input_container > label {
+  font-size: 0.9rem;
+  padding-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 30%;
+  text-align: right;
+}
+
+.input_container > input {
+  margin-bottom: 10px;
+  border: 1px solid #2283c9;
+  border-radius: 5px;
+  padding: 5px 10px;
+  height: 35px;
+  width: 70%;
+}
+
+.input_container > select {
+  margin-bottom: 10px;
+  border: 1px solid #2283c9;
+  border-radius: 5px;
+  padding: 5px 10px;
+  height: 35px;
+  width: 70%;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  cursor: pointer;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-transform: none;
+  margin: 1px 5px;
+  width: 50%;
+  border-radius: 25px;
+  height: 40px;
+}
+
+.btn:disabled {
+  color: #282829;
+  background-color: #ababac;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  text-decoration: none;
+}
