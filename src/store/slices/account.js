@@ -11,8 +11,6 @@ export const signup = createAsyncThunk('users/signup', async (action) => {
 });
 
 const initialState = {
-  tokenExpired: false,
-  newUserCredentials: {},
   status: 'idle',
 };
 
@@ -49,9 +47,9 @@ export const accountSlice = createSlice({
         let message = action.payload.data.message;
         let status = action.payload.status;
         if (status === 200) {
-          state.newUserCredentials = data;
           toast.success(message);
           state.status = 'success';
+          localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access }));
         } else {
           state.status = 'failed';
           toast.error(message);

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewAccount } from '../../store/slices/account';
-import { logUserIn } from '../../store/slices/user';
 
 import mainLogo from '../../assets/images/mainLogo.png';
 import loaderGif from '../../assets/images/loader.gif';
@@ -10,17 +9,14 @@ import styles from './register.module.css';
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { token } = useParams();
   const status = useSelector((state) => state.account.status);
-  const newUserCredentials = useSelector((state) => state.account.newUserCredentials);
 
   useEffect(() => {
-    if (newUserCredentials && newUserCredentials.token) {
-      dispatch(logUserIn(newUserCredentials));
-      navigate('/');
+    if (status === 'success') {
+      setTimeout(() => window.location.replace('https://account.clinicapp.online/'), 500);
     }
-  }, [dispatch, navigate, newUserCredentials]);
+  }, [dispatch, status]);
 
   let form = [
     { type: 'password', name: 'password', label: 'Verify Password', required: true },

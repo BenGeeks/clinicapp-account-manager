@@ -6,8 +6,12 @@ import styles from './home.module.css';
 import Header from './header';
 import Footer from './footer';
 import SideBar from './side-bar';
+import Redirect from './redirect';
 import OwnerAccountPage from './owner-account/account';
-import SubscriptionList from './subscription/subscription';
+import SubscriptionPage from './subscription/subscription';
+import ClinicPage from './clinic/clinic';
+import UsersPage from './user/user';
+import InvoicePage from './invoice/invoice';
 
 const OwnerHomePage = () => {
   return (
@@ -18,7 +22,11 @@ const OwnerHomePage = () => {
         <Routes>
           <Route index element={<OwnerAccountPage />} />
           <Route path="/account" element={<OwnerAccountPage />} />
-          <Route path="/subscription" element={<SubscriptionList />} />
+          <Route path="/clinic" element={<ClinicPage />} />
+          <Route path="/user" element={<UsersPage />} />
+          <Route path="/invoice" element={<InvoicePage />} />
+          <Route path="/subscription" element={<SubscriptionPage />} />
+          <Route path="*" element={<Redirect />} />
         </Routes>
       </div>
       <Footer />

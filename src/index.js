@@ -11,7 +11,7 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <ToastContainer position="top-center" transition={Zoom} autoClose={2000} hideProgressBar={false} newestOnTop={true} pauseOnHover={true} theme={'colored'} />
+    <ToastContainer position="top-center" transition={Zoom} autoClose={3000} hideProgressBar={false} newestOnTop={true} pauseOnHover={true} theme={'colored'} />
     <Provider store={store}>
       <BrowserRouter>
         <App />

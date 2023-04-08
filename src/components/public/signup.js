@@ -37,23 +37,27 @@ const SignupPage = () => {
           <form className={styles.form_container} onSubmit={onSubmitHandler}>
             <div className={styles.input_container}>
               <label htmlFor="businessName">Business Name:</label>
-              <input type="text" name="businessName" placeholder="Business Name" />
+              <input type="text" name="businessName" placeholder="Business Name" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="firstName">First Name:</label>
-              <input type="text" name="firstName" placeholder="First Name" />
+              <input type="text" name="firstName" placeholder="First Name" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="lastName">Last Name:</label>
-              <input type="text" name="lastName" placeholder="Last Name" />
+              <input type="text" name="lastName" placeholder="Last Name" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="emailAddress">Email Address:</label>
-              <input type="email" name="emailAddress" placeholder="Email Address" />
+              <input type="email" name="emailAddress" placeholder="Email Address" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="password">Password:</label>
               <input type="password" name="password" placeholder="Password" minLength="8" maxLength="30" required />
+            </div>
+            <div className={styles.input_container}>
+              <label htmlFor="mobile">Mobile Number:</label>
+              <input type="tel" name="mobileNumber" placeholder="0999 951 7856" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="subscription">Subscription:</label>
