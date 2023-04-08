@@ -31,14 +31,14 @@ const SideBar = () => {
         </div>
       </Link>
       <Link to="/clinic">
-        <div className={location === '/clinics' ? styles.icon_container_active : styles.icon_container} title="clinics">
+        <div className={location === '/clinic' ? styles.icon_container_active : styles.icon_container} title="clinics">
           <div className={styles.icon}>
             <FaRegHospital />
           </div>
         </div>
       </Link>
       <Link to="/user">
-        <div className={location === '/users' ? styles.icon_container_active : styles.icon_container} title="users">
+        <div className={location === '/user' ? styles.icon_container_active : styles.icon_container} title="user">
           <div className={styles.icon}>
             <FiUsers />
           </div>

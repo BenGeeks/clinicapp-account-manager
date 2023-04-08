@@ -1,0 +1,11 @@
+.input_container {
+  margin-top: 0px;
+}
+
+.input {
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #3e5569;
+  margin-bottom: 5px;
+}

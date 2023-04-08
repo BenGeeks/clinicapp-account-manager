@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getClinicList } from '../../../store/slices/clinic';
 
 import styles from './clinic.module.css';
-import Table from '../../../assets/table';
+import ReactTable from '../../../assets/react-table';
+import ColumnFilter from '../../../assets/column-filter';
 
 const ClinicPage = () => {
   const dispatch = useDispatch();
@@ -15,25 +16,26 @@ const ClinicPage = () => {
     dispatch(getClinicList({ method: 'get', url: 'accounts/clinic', token }));
   }, [dispatch, token]);
 
-  const tableHeader = [
-    { label: 'Clinic Name', name: 'clinicName', type: 'text' },
-    { label: 'Name', name: 'houseNumberAndStreet', type: 'text' },
-    { label: 'Barangay', name: 'barangay', type: 'text' },
-    { label: 'City', name: 'cityOrMunicipality', type: 'text' },
-    { label: 'Province', name: 'province', type: 'text' },
-    { label: 'Zip', name: 'zip', type: 'text' },
-    { label: 'Phone', name: 'telephone', type: 'text' },
+  const COLUMNS = [
+    { Header: 'Clinic Name', accessor: 'clinicName', Filter: ColumnFilter },
+    { Header: 'Address', accessor: 'houseNumberAndStreet', Filter: ColumnFilter },
+    { Header: 'Barangay', accessor: 'barangay', Filter: ColumnFilter },
+    { Header: 'City', accessor: 'cityOrMunicipality', Filter: ColumnFilter },
+    { Header: 'Province', accessor: 'province', Filter: ColumnFilter },
+    { Header: 'Zip', accessor: 'zip', Filter: ColumnFilter },
+    { Header: 'Phone', accessor: 'telephone', Filter: ColumnFilter },
+    // { Header: 'For Date', accessor: 'date', Cell: ({value}) => {return moment(value).format('MMM DD, yyyy')} },
   ];
 
   return (
     <div className={styles.main_page}>
       <div className={styles.header_bar}>
         <h2 className={styles.page_header}>Clinic List</h2>
-        <div className={styles.buttons_container}>
-          <button className={styles.button1}>Create New Subscription</button>
-        </div>
+        {/* <div className={styles.buttons_container}>
+          <button className={styles.button1}>Create New Clinic</button>
+        </div> */}
       </div>
-      <Table header={tableHeader} data={clinicList} />
+      <ReactTable COLUMNS={COLUMNS} DATA={clinicList} enableFilter={true} />
     </div>
   );
 };

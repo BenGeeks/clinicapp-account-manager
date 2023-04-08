@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { getSubscriptionList } from '../../../store/slices/subscription';
 
-import styles from './subscription.module.css';
+import ReactTable from '../../../assets/react-table';
+import ColumnFilter from '../../../assets/column-filter';
 
-import Table from '../../../assets/table';
+import styles from './subscription.module.css';
 
 const SubscriptionPage = () => {
   const dispatch = useDispatch();
@@ -16,11 +16,11 @@ const SubscriptionPage = () => {
     dispatch(getSubscriptionList({ method: 'get', url: 'accounts/subscriptions' }));
   }, [dispatch]);
 
-  const tableHeader = [
-    { label: 'Name', name: 'subscriptionName', type: 'text' },
-    { label: 'Clinic Limit', name: 'clinicSiteLimit', type: 'text' },
-    { label: 'User Limit', name: 'userLimit', type: 'text' },
-    { label: 'Chart Limit', name: 'chartLimit', type: 'text' },
+  const COLUMNS = [
+    { Header: 'Name', accessor: 'subscriptionName', Filter: ColumnFilter },
+    { Header: 'Clinic Limit', accessor: 'clinicSiteLimit', Filter: ColumnFilter },
+    { Header: 'User Limit', accessor: 'userLimit', Filter: ColumnFilter },
+    { Header: 'Chart Limit', accessor: 'chartLimit', Filter: ColumnFilter },
   ];
 
   return (
@@ -29,7 +29,7 @@ const SubscriptionPage = () => {
         <h2 className={styles.page_header}>Subscriptions</h2>
         <div className={styles.buttons_container}>{access !== 'owner' && <button className={styles.button1}>Create New Subscription</button>}</div>
       </div>
-      <Table header={tableHeader} data={subscriptionList} />
+      <ReactTable COLUMNS={COLUMNS} DATA={subscriptionList} enableFilter={false} />
     </div>
   );
 };
