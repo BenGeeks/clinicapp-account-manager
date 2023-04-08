@@ -11,7 +11,7 @@
 .container {
   padding: 20px;
   background-color: white;
-  width: 400px;
+  width: 600px;
   border: 1px solid #bbcef2;
   display: flex;
   align-items: center;
@@ -58,15 +58,23 @@
 .input_container > label {
   font-size: 0.8rem;
   padding-left: 5px;
-  margin-top: 10px;
   margin-bottom: 5px;
 }
 
 .input_container > input {
   margin-bottom: 10px;
   border: 1px solid #2283c9;
+  border-radius: 5px;
   padding: 5px 10px;
-  height: 40px;
+  height: 35px;
+}
+
+.input_container > select {
+  margin-bottom: 10px;
+  border: 1px solid #2283c9;
+  border-radius: 5px;
+  padding: 5px 10px;
+  height: 35px;
 }
 
 .button_container {
@@ -80,8 +88,8 @@
 .btn {
   cursor: pointer;
   color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #007bff;
+  border-color: #007bff;
   text-decoration: none;
   display: inline-block;
   font-weight: 400;
@@ -99,19 +107,40 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   text-transform: none;
   margin: 1px 5px;
-  width: 50%;
-  height: 40px;
+  width: 70%;
   border-radius: 25px;
+  height: 50px;
 }
 
 .btn:disabled {
+  cursor: default;
   color: #282829;
   background-color: #ababac;
 }
 
-.btn:hover {
+.btn:hover:enabled {
   color: #fff;
-  background-color: #218838;
-  border-color: #1e7e34;
+  background-color: #0069d9;
+  border-color: #0062cc;
   text-decoration: none;
+}
+
+.loader_gif {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  padding-top: 3px;
+}
+
+.success_message_container {
+  padding: 10px;
+  background-color: rgb(255, 249, 241);
+  border-radius: 3px;
+}
+
+.success_message {
+  font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #282829;
+  text-align: center;
 }

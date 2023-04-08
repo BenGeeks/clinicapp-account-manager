@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { userLogIn } from '../../store/slices/user';
 
 import mainLogo from '../../assets/images/mainLogo.png';
+import loaderGif from '../../assets/images/loader.gif';
 import styles from './login.module.css';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const status = useSelector((state) => state.user.status);
 
   const onSubmitHandler = (event) => {
@@ -18,6 +21,7 @@ const LoginPage = () => {
       payload[input[0]] = input[1];
     });
     dispatch(userLogIn({ method: 'post', url: 'account/login', data: payload }));
+    navigate('/');
   };
 
   return (
@@ -38,7 +42,14 @@ const LoginPage = () => {
           </div>
           <div className={styles.button_container}>
             <button className={styles.btn} type="submit" disabled={status === 'loading'}>
-              {status === 'loading' ? 'Signing in...' : 'Sign In'}
+              {status === 'loading' ? (
+                <span>
+                  <img src={loaderGif} className={styles.loader_gif} alt="loader" />
+                  Signing in...
+                </span>
+              ) : (
+                'Sign In'
+              )}
             </button>
           </div>
         </form>

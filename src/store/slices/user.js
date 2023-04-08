@@ -16,7 +16,11 @@ export const userLogOut = createAsyncThunk('users/logoutStatus', async (action) 
 
 const initialState = {
   isLoggedIn: false,
+  userInfo: {},
   userData: {},
+  subscriptionInfo: {},
+  accountInfo: {},
+  clinicList: [],
   status: 'idle',
 };
 
@@ -27,6 +31,10 @@ export const userSlice = createSlice({
     logUserOut: (state) => {
       state.isLoggedIn = false;
       state.userData = {};
+    },
+    logUserIn: (state, action) => {
+      state.isLoggedIn = true;
+      state.userData = action.payload.userData;
     },
   },
   extraReducers(builder) {
@@ -44,6 +52,10 @@ export const userSlice = createSlice({
           toast.success(message);
           state.isLoggedIn = true;
           state.userData = data;
+          state.userInfo = data.userInfo;
+          state.subscriptionInfo = data.subscriptionInfo;
+          state.accountInfo = data.accountInfo;
+          state.clinicList = data.clinicList;
           localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access }));
         } else {
           state.status = 'failed';
@@ -62,9 +74,12 @@ export const userSlice = createSlice({
         let status = action.payload.status;
         if (status === 200) {
           state.status = 'succeeded';
-          toast.success(message);
           state.isLoggedIn = true;
           state.userData = data;
+          state.userInfo = data.userInfo;
+          state.subscriptionInfo = data.subscriptionInfo;
+          state.accountInfo = data.accountInfo;
+          state.clinicList = data.clinicList;
         } else {
           toast.error(message);
           state.status = 'failed';
@@ -81,13 +96,11 @@ export const userSlice = createSlice({
         toast.success('Successfully logged out.');
         state.status = 'succeeded';
         state.isLoggedIn = false;
-        state.currentUser = {};
-        state.allUserData = [];
-        state.userData = [];
+        state.userInfo = {};
         localStorage.removeItem('clinicAppUserData');
       });
   },
 });
 
-export const { logUserOut } = userSlice.actions;
+export const { logUserOut, logUserIn } = userSlice.actions;
 export default userSlice.reducer;

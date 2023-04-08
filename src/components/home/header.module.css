@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #2283c9;
+  box-shadow: 1px 1px 5px;
+}
+
+.header_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.company_info_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.company_logo {
+  margin: 0px 10px;
+  padding: 2px;
+}
+
+.company_name {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0px 10px 0px 0px;
+}
+
+.header_text {
+  font-size: 0.7rem;
+  color: aliceblue;
+  padding: 0px;
+  margin: 0px;
+}
+
+.btn_container {
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.btn {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-transform: none;
+  margin: 1px 5px;
+  width: 120px;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.btn_primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn_primary:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  text-decoration: none;
+}
+
+.btn_success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn_success:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+  text-decoration: none;
+}

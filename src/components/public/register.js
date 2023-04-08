@@ -1,26 +1,29 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { getSubscriptionList } from '../../store/slices/subscription';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { createNewAccount } from '../../store/slices/account';
+import { logUserIn } from '../../store/slices/user';
 
 import mainLogo from '../../assets/images/mainLogo.png';
-
+import loaderGif from '../../assets/images/loader.gif';
 import styles from './register.module.css';
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useParams();
-  const subscriptionList = useSelector((state) => (state.subscription && state.subscription.subscriptionList ? state.subscription.subscriptionList : []));
+  const status = useSelector((state) => state.account.status);
+  const newUserCredentials = useSelector((state) => state.account.newUserCredentials);
 
-  let status = true;
+  useEffect(() => {
+    if (newUserCredentials && newUserCredentials.token) {
+      dispatch(logUserIn(newUserCredentials));
+      navigate('/');
+    }
+  }, [dispatch, navigate, newUserCredentials]);
 
   let form = [
-    { type: 'text', name: 'businessName', label: 'Business Name', required: true },
-    { type: 'text', name: 'firstName', label: 'First Name', required: true },
-    { type: 'text', name: 'lastName', label: 'Last Name', required: true },
-    { type: 'select', name: 'subscription', label: 'Subscription Plan', options: subscriptionList, required: true },
+    { type: 'password', name: 'password', label: 'Verify Password', required: true },
     { type: 'text', name: 'clinicName', label: 'Clinic Name', required: true },
     { type: 'text', name: 'houseNumberAndStreet', label: 'Address', required: true },
     { type: 'text', name: 'barangay', label: 'Barangay', required: true },
@@ -30,11 +33,6 @@ const RegistrationPage = () => {
     { type: 'text', name: 'telephone', label: 'Telephone Number', required: true },
   ];
 
-  console.log(token);
-  useEffect(() => {
-    dispatch(getSubscriptionList({ method: 'get', url: 'accounts/subscriptions' }));
-  }, [dispatch]);
-
   const onSubmitHandler = (event) => {
     event.preventDefault();
     let payload = {};
@@ -42,7 +40,6 @@ const RegistrationPage = () => {
     [...data.entries()].forEach((input) => {
       payload[input[0]] = input[1];
     });
-    console.log(payload);
     dispatch(createNewAccount({ method: 'post', url: 'account', token, data: payload }));
   };
 
@@ -56,37 +53,23 @@ const RegistrationPage = () => {
         <form className={styles.form_container} onSubmit={onSubmitHandler}>
           {form.map((input) => {
             return (
-              <div key={input.name}>
-                {input.type === 'text' && (
-                  <div className={styles.input_container}>
-                    <label htmlFor={input.name}>{input.label}:</label>
-                    <input type="text" name={input.name} required={input.required} />
-                  </div>
-                )}
-                {input.type === 'select' && (
-                  <div className={styles.input_container}>
-                    <label htmlFor={input.name}>{input.label}:</label>
-                    <select name={input.name} required={input.required}>
-                      <option value="" disabled>
-                        -- Select Subscription --
-                      </option>
-                      {input.options.map((option) => {
-                        return (
-                          <option key={option._id} value={option.value}>
-                            {option.subscriptionName}{' '}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                )}
+              <div key={input.name} className={styles.input_container}>
+                <label htmlFor={input.name}>{input.label}:</label>
+                <input type={input.type} name={input.name} required={input.required} placeholder={input.label} />
               </div>
             );
           })}
 
           <div className={styles.button_container}>
             <button className={styles.btn} type="submit" disabled={status === 'loading'}>
-              {status === 'loading' ? 'Processing...' : 'Register'}
+              {status === 'loading' ? (
+                <span>
+                  <img src={loaderGif} className={styles.loader_gif} alt="loader" />
+                  Processing...
+                </span>
+              ) : (
+                'Register'
+              )}
             </button>
           </div>
         </form>

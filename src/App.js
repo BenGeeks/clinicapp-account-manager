@@ -20,10 +20,10 @@ function App() {
     }
   }, [dispatch]);
 
-  console.log(isLoggedIn);
   return (
     <Routes>
-      <Route path="/" element={isLoggedIn ? <HomePage /> : <LoginPage />} />
+      <Route path="/*" element={isLoggedIn ? <HomePage /> : <LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/register/:token" element={<RegistrationPage />} />
     </Routes>

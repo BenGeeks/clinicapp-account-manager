@@ -6,22 +6,39 @@ export const createNewAccount = createAsyncThunk('users/createNewAccount', async
   return await apiRequest(action);
 });
 
+export const signup = createAsyncThunk('users/signup', async (action) => {
+  return await apiRequest(action);
+});
+
 const initialState = {
-  isLoggedIn: false,
+  tokenExpired: false,
+  newUserCredentials: {},
   status: 'idle',
 };
 
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {
-    logUserOut: (state) => {
-      state.isLoggedIn = false;
-      state.userData = {};
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
+
+      // sign up account
+      .addCase(signup.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(signup.fulfilled, (state, action) => {
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          toast.success(message);
+          state.status = 'success';
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
 
       // create new account
       .addCase(createNewAccount.pending, (state) => {
@@ -32,9 +49,9 @@ export const accountSlice = createSlice({
         let message = action.payload.data.message;
         let status = action.payload.status;
         if (status === 200) {
+          state.newUserCredentials = data;
           toast.success(message);
           state.status = 'success';
-          state.subscriptionList = data;
         } else {
           state.status = 'failed';
           toast.error(message);
@@ -44,5 +61,4 @@ export const accountSlice = createSlice({
   },
 });
 
-export const { logUserOut } = accountSlice.actions;
 export default accountSlice.reducer;
