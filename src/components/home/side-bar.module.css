@@ -24,6 +24,18 @@
   background-color: #314f5d;
 }
 
+.icon_container_active {
+  cursor: default;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #314f5d;
+  background-color: #314f5d;
+}
+
 .icon {
   font-size: 1.6rem;
   color: white;

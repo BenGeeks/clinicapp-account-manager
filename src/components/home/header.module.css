@@ -76,20 +76,16 @@
 }
 
 .btn_primary:hover {
-  color: #fff;
   background-color: #0069d9;
   border-color: #0062cc;
-  text-decoration: none;
 }
 
-.btn_success {
-  background-color: #28a745;
-  border-color: #28a745;
+.btn_danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
-.btn_success:hover {
-  color: #fff;
-  background-color: #218838;
-  border-color: #1e7e34;
-  text-decoration: none;
+.btn_danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
 }

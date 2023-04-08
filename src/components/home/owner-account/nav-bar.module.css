@@ -1,0 +1,36 @@
+.nav_container {
+  width: 100%;
+  background-color: white;
+  height: 40px;
+  margin: 0px;
+  padding-left: 50px;
+  display: flex;
+  border-bottom: 1px solid #ecf0f5;
+}
+
+.nav {
+  cursor: pointer;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.nav:hover {
+  border: 1px solid #ecf0f5;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: none;
+}
+
+.nav_active {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  background-color: #ecf0f5;
+  border: 1px solid #ecf0f5;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: none;
+}

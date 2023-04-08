@@ -22,7 +22,7 @@ const Header = () => {
         </div>
         <div className={styles.btn_container}>
           <button className={`${styles.btn} ${styles.btn_primary}`}>App</button>
-          <button className={`${styles.btn} ${styles.btn_success}`} onClick={userLogoutHandler}>
+          <button className={`${styles.btn} ${styles.btn_danger}`} onClick={userLogoutHandler}>
             Logout
           </button>
         </div>
