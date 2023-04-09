@@ -2,6 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiRequest from '../axios/axios';
 import { toast } from 'react-toastify';
 
+export const getAccountList = createAsyncThunk('users/getAccountList', async (action) => {
+  return await apiRequest(action);
+});
+
 export const createNewAccount = createAsyncThunk('users/createNewAccount', async (action) => {
   return await apiRequest(action);
 });
@@ -11,6 +15,7 @@ export const signup = createAsyncThunk('users/signup', async (action) => {
 });
 
 const initialState = {
+  accountList: [],
   status: 'idle',
 };
 
@@ -50,6 +55,24 @@ export const accountSlice = createSlice({
           toast.success(message);
           state.status = 'success';
           localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access }));
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+
+      // get all accounts
+      .addCase(getAccountList.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getAccountList.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : [];
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'success';
+          state.accountList = data;
         } else {
           state.status = 'failed';
           toast.error(message);

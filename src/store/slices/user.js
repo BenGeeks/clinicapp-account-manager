@@ -2,6 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiRequest from '../axios/axios';
 import { toast } from 'react-toastify';
 
+export const getUserList = createAsyncThunk('users/getUserList', async (action) => {
+  return await apiRequest(action);
+});
+
 export const userLogIn = createAsyncThunk('users/loginStatus', async (action) => {
   return await apiRequest(action);
 });
@@ -21,6 +25,7 @@ const initialState = {
   subscriptionInfo: {},
   accountInfo: {},
   clinicList: [],
+  userList: [],
   status: 'idle',
 };
 
@@ -94,6 +99,24 @@ export const userSlice = createSlice({
         state.isLoggedIn = false;
         state.userInfo = {};
         localStorage.removeItem('clinicAppUserData');
+      })
+
+      // get user list
+      .addCase(getUserList.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserList.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : {};
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'succeeded';
+          state.userList = data;
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
       });
   },
 });

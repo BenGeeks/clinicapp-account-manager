@@ -5,8 +5,6 @@ import { getSubscriptionList } from '../../../store/slices/subscription';
 import ReactTable from '../../../assets/react-table';
 import ColumnFilter from '../../../assets/column-filter';
 
-import styles from './subscription.module.css';
-
 const SubscriptionPage = () => {
   const dispatch = useDispatch();
   const subscriptionList = useSelector((state) => state.subscription.subscriptionList);
@@ -20,17 +18,37 @@ const SubscriptionPage = () => {
     { Header: 'Name', accessor: 'subscriptionName', Filter: ColumnFilter },
     { Header: 'Clinic Limit', accessor: 'clinicSiteLimit', Filter: ColumnFilter },
     { Header: 'User Limit', accessor: 'userLimit', Filter: ColumnFilter },
-    { Header: 'Chart Limit', accessor: 'chartLimit', Filter: ColumnFilter },
+    { Header: 'Patients per Day', accessor: 'chartLimit', Filter: ColumnFilter },
+    { Header: 'Price per Month', accessor: 'price', Filter: ColumnFilter },
   ];
 
+  const onEditHandler = (id) => {
+    // navigate(`/account/edit/${id}`);
+  };
+
+  const onDeleteHandler = (id) => {
+    // navigate(`/account/edit/${id}`);
+  };
+
+  const onAddNewHandler = () => {
+    // navigate(`/account/edit/${id}`);
+  };
+
   return (
-    <div className={styles.main_page}>
-      <div className={styles.header_bar}>
-        <h2 className={styles.page_header}>Subscriptions</h2>
-        <div className={styles.buttons_container}>{access !== 'owner' && <button className={styles.button1}>Create New Subscription</button>}</div>
-      </div>
-      <ReactTable COLUMNS={COLUMNS} DATA={subscriptionList} enableFilter={false} />
-    </div>
+    <>
+      <ReactTable
+        COLUMNS={COLUMNS}
+        DATA={subscriptionList}
+        title={'Subscription List'}
+        enableFilter={false}
+        enableEdit={access === 'owner' ? false : true}
+        enableDelete={access === 'owner' ? false : true}
+        enableAddNew={access === 'owner' ? false : true}
+        onEdit={onEditHandler}
+        onDelete={onDeleteHandler}
+        onAddNew={onAddNewHandler}
+      />
+    </>
   );
 };
 

@@ -45,6 +45,10 @@ const AccountInfo = () => {
           <div className={styles.info_label}>Chart Limit:</div>
           <div className={styles.info_details}>{(subscriptionInfo && subscriptionInfo.chartLimit) || ''} per day</div>
         </div>
+        <div className={styles.info_set}>
+          <div className={styles.info_label}>Monthly Price:</div>
+          <div className={styles.info_details}>{(subscriptionInfo && subscriptionInfo.price) || ''} per month</div>
+        </div>
       </div>
       <div className={styles.column}>
         <div className={styles.column_header}>Account</div>
@@ -57,12 +61,16 @@ const AccountInfo = () => {
           <div className={styles.info_details}>{(accountInfo && accountInfo.status) || ''}</div>
         </div>
         <div className={styles.info_set}>
-          <div className={styles.info_label}>Next Billing Date: </div>
-          <div className={styles.info_details}>{(accountInfo && accountInfo.nextBillingDate && moment(accountInfo.nextBillingDate).format('MMM DD, yyyy')) || ''}</div>
+          <div className={styles.info_label}>Due Date: </div>
+          <div className={styles.info_details}>{(accountInfo && accountInfo.dueDate && moment(accountInfo.dueDate).format('MMM DD, yyyy')) || ''}</div>
         </div>
         <div className={styles.info_set}>
-          <div className={styles.info_label}>Next Bill Amount:</div>
-          <div className={styles.info_details}>₱ {(accountInfo && accountInfo.nextBillingAmount) || ''}</div>
+          <div className={styles.info_label}>Amount Due:</div>
+          <div className={styles.info_details}>{accountInfo && accountInfo.amountDue ? `₱ ${accountInfo.amountDue.toFixed(2)}` : ''}</div>
+        </div>
+        <div className={styles.info_set}>
+          <div className={styles.info_label}>Over Due:</div>
+          <div className={styles.info_details}>{accountInfo && accountInfo.overDue ? `₱ ${accountInfo.overDue.toFixed(2)}` : ''}</div>
         </div>
       </div>
     </div>
