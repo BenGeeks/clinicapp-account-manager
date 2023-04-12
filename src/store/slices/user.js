@@ -83,6 +83,7 @@ export const userSlice = createSlice({
           state.clinicList = data.clinicList;
         } else {
           toast.error(message);
+          state.isLoggedIn = false;
           state.status = 'failed';
           localStorage.removeItem('clinicAppUserData');
           console.log(action.payload);

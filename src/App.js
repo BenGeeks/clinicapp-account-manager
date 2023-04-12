@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { verifyToken } from './store/slices/user';
 
-import LoginPage from './components/public/login';
-import RegistrationPage from './components/public/register';
-import SignupPage from './components/public/signup';
-import HomePage from './components/home/home';
+const HomePage = lazy(() => import('./components/home/home'));
+const LoginPage = lazy(() => import('./components/public/login'));
+const RegistrationPage = lazy(() => import('./components/public/register'));
+const SignupPage = lazy(() => import('./components/public/signup'));
 
 function App() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn && state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('clinicAppUserData'));
@@ -21,19 +21,21 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      {isLoggedIn ? (
-        <Route path="*" element={<HomePage />} />
-      ) : (
-        <>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/register/:token" element={<RegistrationPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </>
-      )}
-    </Routes>
+    <Suspense>
+      <Routes>
+        {isLoggedIn ? (
+          <Route path="*" element={<HomePage />} />
+        ) : (
+          <>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/register/:token" element={<RegistrationPage />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
+      </Routes>
+    </Suspense>
   );
 }
 

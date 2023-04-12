@@ -46,7 +46,7 @@ const HomePage = () => {
               <Route path="/account" element={<AccountPage />} />
             </>
           )}
-          <Route path="/clinic" element={<ClinicPage />} />
+          <Route path="/clinic/*" element={<ClinicPage />} />
           <Route path="/user" element={<UsersPage />} />
           <Route path="/invoice" element={<InvoicePage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
