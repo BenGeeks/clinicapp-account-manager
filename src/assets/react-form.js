@@ -4,13 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import styles from './react-form.module.css';
 
-const ReactForm = ({ title, onSubmit, onCancel, layout, schema }) => {
+const ReactForm = ({ title, onSubmit, onCancel, layout, schema, defaultValues }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues,
   });
 
   return (

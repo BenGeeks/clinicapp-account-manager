@@ -21,9 +21,9 @@ const RegistrationPage = () => {
   let form = [
     { type: 'password', name: 'password', label: 'Verify Password', required: true },
     { type: 'text', name: 'clinicName', label: 'Clinic Name', required: true },
-    { type: 'text', name: 'houseNumberAndStreet', label: 'Address', required: true },
+    { type: 'text', name: 'address', label: 'Address', required: true },
     { type: 'text', name: 'barangay', label: 'Barangay', required: true },
-    { type: 'text', name: 'cityOrMunicipality', label: 'City or Municipality', required: true },
+    { type: 'text', name: 'city', label: 'City or Municipality', required: true },
     { type: 'text', name: 'province', label: 'Province', required: true },
     { type: 'text', name: 'zip', label: 'Zip Code', required: true },
     { type: 'text', name: 'telephone', label: 'Telephone Number', required: true },

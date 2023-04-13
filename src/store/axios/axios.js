@@ -9,7 +9,7 @@ const apiRequest = (payload) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${payload.token}`,
     },
-    data: payload.data,
+    data: JSON.stringify(payload.data),
   };
 
   return Axios(config)
