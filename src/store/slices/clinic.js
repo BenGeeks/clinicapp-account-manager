@@ -28,12 +28,7 @@ const initialState = {
 export const clinicSlice = createSlice({
   name: 'clinic',
   initialState,
-  reducers: {
-    logUserOut: (state) => {
-      state.isLoggedIn = false;
-      state.userData = {};
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
 
@@ -75,6 +70,7 @@ export const clinicSlice = createSlice({
         if (status === 200) {
           state.clinicList = data;
           state.status = 'success';
+          toast.success(message);
         } else if (status === 401) {
           state.status = 'failed';
           toast.error(message);
@@ -148,5 +144,4 @@ export const clinicSlice = createSlice({
   },
 });
 
-export const { logUserOut } = clinicSlice.actions;
 export default clinicSlice.reducer;

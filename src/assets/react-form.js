@@ -36,7 +36,20 @@ const ReactForm = ({ title, onSubmit, onCancel, layout, schema, defaultValues })
                   <label htmlFor={input.name}>{input.label}:</label>
                   <div className={styles.error_message}>{errors[input.name]?.message}</div>
                 </div>
-                <input type={input.type} placeholder={input.label} {...register(input.name)} />
+                {input.type === 'select' && (
+                  <select placeholder={input.label} {...register(input.name)}>
+                    {input &&
+                      input.options &&
+                      input.options.map((option) => {
+                        return (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        );
+                      })}
+                  </select>
+                )}
+                {input.type !== 'select' && <input type={input.type} placeholder={input.label} {...register(input.name)} />}
               </div>
             );
           })}

@@ -2,10 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiRequest from '../axios/axios';
 import { toast } from 'react-toastify';
 
-export const getAccountList = createAsyncThunk('users/getAccountList', async (action) => {
-  return await apiRequest(action);
-});
-
 export const createNewAccount = createAsyncThunk('users/createNewAccount', async (action) => {
   return await apiRequest(action);
 });
@@ -14,8 +10,27 @@ export const signup = createAsyncThunk('users/signup', async (action) => {
   return await apiRequest(action);
 });
 
+export const getAccountList = createAsyncThunk('users/getAccountList', async (action) => {
+  return await apiRequest(action);
+});
+
+export const getAccountData = createAsyncThunk('users/getAccountData', async (action) => {
+  return await apiRequest(action);
+});
+
+export const updateAccount = createAsyncThunk('users/updateAccount', async (action) => {
+  return await apiRequest(action);
+});
+
+export const getCompleteAccountData = createAsyncThunk('users/getCompleteAccountData', async (action) => {
+  return await apiRequest(action);
+});
+
 const initialState = {
+  isLoggedIn: false,
   accountList: [],
+  accountData: {},
+  completeAccountData: {},
   status: 'idle',
 };
 
@@ -42,6 +57,11 @@ export const accountSlice = createSlice({
           console.log(action.payload);
         }
       })
+      .addCase(signup.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
 
       // create new account
       .addCase(createNewAccount.pending, (state) => {
@@ -61,6 +81,11 @@ export const accountSlice = createSlice({
           console.log(action.payload);
         }
       })
+      .addCase(createNewAccount.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
 
       // get all accounts
       .addCase(getAccountList.pending, (state) => {
@@ -78,6 +103,81 @@ export const accountSlice = createSlice({
           toast.error(message);
           console.log(action.payload);
         }
+      })
+      .addCase(getAccountList.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
+
+      // get account data
+      .addCase(getAccountData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getAccountData.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : [];
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'completed';
+          state.accountData = data;
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+      .addCase(getAccountData.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
+
+      // get complete account data
+      .addCase(getCompleteAccountData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getCompleteAccountData.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : [];
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'completed';
+          state.completeAccountData = data;
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+      .addCase(getCompleteAccountData.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
+
+      // update account
+      .addCase(updateAccount.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateAccount.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : [];
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'success';
+          state.accountList = data;
+          toast.success(message);
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+      .addCase(updateAccount.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
       });
   },
 });

@@ -1,10 +1,7 @@
 import React from 'react';
 import styles from './account-bar.module.css';
-import { useSelector } from 'react-redux';
 
-const AccountBar = () => {
-  const accountInfo = useSelector((state) => state.user.accountInfo);
-
+const AccountBar = ({ accountInfo }) => {
   return (
     <div className={styles.button_bar_container}>
       <h2 className={styles.account_name}>{(accountInfo && accountInfo.businessName) || ''}</h2>

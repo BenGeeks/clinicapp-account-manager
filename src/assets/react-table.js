@@ -2,9 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { useTable, useSortBy, useFilters } from 'react-table';
 
 import { RiEdit2Line, RiDeleteBin4Line } from 'react-icons/ri';
+import { IoEyeOutline } from 'react-icons/io5';
 import styles from './react-table.module.css';
 
-const ReactTable = ({ COLUMNS, DATA, title, enableEdit, enableDelete, enableAddNew, onEdit, onDelete, onAddNew }) => {
+const ReactTable = ({ COLUMNS, DATA, title, enableEdit, enableDelete, enableAddNew, enableView, onEdit, onDelete, onAddNew, onView }) => {
   const columns = useMemo(() => COLUMNS, [COLUMNS]);
   const data = useMemo(() => DATA, [DATA]);
   const [enableFilter, setEnableFilter] = useState(false);
@@ -74,6 +75,11 @@ const ReactTable = ({ COLUMNS, DATA, title, enableEdit, enableDelete, enableAddN
                     {enableDelete && (
                       <div title="delete" className={styles.icon} onClick={() => onDelete(row.original._id)}>
                         <RiDeleteBin4Line />
+                      </div>
+                    )}
+                    {enableView && (
+                      <div title="view" className={styles.icon} onClick={() => onView(row.original._id)}>
+                        <IoEyeOutline />
                       </div>
                     )}
                   </div>

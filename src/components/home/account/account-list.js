@@ -1,50 +1,43 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-import { getClinicList } from '../../../store/slices/clinic';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAccountList } from '../../../store/slices/account';
 
 import ReactTable from '../../../assets/react-table';
 import { COLUMNS } from './resources';
 
-const ClinicListPage = () => {
+const AccountListPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const clinicList = useSelector((state) => state.clinic.clinicList);
+  const accountList = useSelector((state) => state.account.accountList);
   const token = useSelector((state) => state.user.userData.token);
 
   useEffect(() => {
-    dispatch(getClinicList({ method: 'get', url: 'clinic', token }));
+    dispatch(getAccountList({ method: 'get', url: 'account', token }));
   }, [dispatch, token]);
 
   const onEditHandler = (id) => {
-    navigate(`/clinic/edit/${id}`);
-  };
-
-  const onAddNewHandler = () => {
-    navigate('/clinic/new');
+    navigate(`/account/edit/${id}`);
   };
 
   const onViewHandler = (id) => {
-    navigate(`/clinic/${id}`);
+    navigate(`/account/${id}`);
   };
 
   return (
     <>
       <ReactTable
         COLUMNS={COLUMNS}
-        DATA={clinicList}
-        title={'Clinic List'}
+        DATA={accountList}
+        title={'Account List'}
         enableEdit={true}
-        enableAddNew={true}
         enableDelete={false}
         enableView={true}
         onEdit={onEditHandler}
-        onAddNew={onAddNewHandler}
         onView={onViewHandler}
       />
     </>
   );
 };
 
-export default ClinicListPage;
+export default AccountListPage;

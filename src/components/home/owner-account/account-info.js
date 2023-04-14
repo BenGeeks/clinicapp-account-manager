@@ -1,13 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
 import styles from './account-info.module.css';
 import moment from 'moment';
 
-const AccountInfo = () => {
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const subscriptionInfo = useSelector((state) => state.user.subscriptionInfo);
-  const accountInfo = useSelector((state) => state.user.accountInfo);
-
+const AccountInfo = ({ userInfo, subscriptionInfo, accountInfo }) => {
   return (
     <div className={styles.main_container}>
       <div className={styles.column}>

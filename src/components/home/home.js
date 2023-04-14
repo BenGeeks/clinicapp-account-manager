@@ -17,9 +17,6 @@ import InvoicePage from './invoice/invoice';
 import AccountPage from './account/account';
 import DashboardPage from './dashboard/dashboard';
 
-import EditAccountPage from './account/account-edit';
-import EditClinicPage from './clinic/clinic-edit';
-
 const OWNER = 'owner';
 const SUPPORT = 'support';
 const SUPERUSER = 'superuser';
@@ -43,16 +40,13 @@ const HomePage = () => {
             <>
               <Route index element={<DashboardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account/*" element={<AccountPage />} />
             </>
           )}
           <Route path="/clinic/*" element={<ClinicPage />} />
           <Route path="/subscription/*" element={<SubscriptionPage />} />
           <Route path="/user" element={<UsersPage />} />
           <Route path="/invoice" element={<InvoicePage />} />
-
-          <Route path="/account/edit/:id" element={<EditAccountPage />} />
-          <Route path="/clinic/edit/:id" element={<EditClinicPage />} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

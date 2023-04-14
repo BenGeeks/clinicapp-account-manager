@@ -13,7 +13,7 @@ const SignupPage = () => {
   const subscriptionList = useSelector((state) => (state.subscription && state.subscription.subscriptionList ? state.subscription.subscriptionList : []));
 
   useEffect(() => {
-    dispatch(getSubscriptionList({ method: 'get', url: 'accounts/subscriptions' }));
+    dispatch(getSubscriptionList({ method: 'get', url: 'subscription' }));
   }, [dispatch]);
 
   const onSubmitHandler = (event) => {
