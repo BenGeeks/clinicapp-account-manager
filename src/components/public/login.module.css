@@ -9,7 +9,7 @@
 }
 
 .container {
-  padding: 20px;
+  padding: 40px 20px;
   background-color: white;
   width: 600px;
   border: 1px solid #bbcef2;
@@ -27,27 +27,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-}
-
-.logo_container {
-  display: flex;
-  flex-direction: row;
-  margin: 10px;
-  align-items: center;
-}
-
-.logo {
-  width: auto;
-  height: 40px;
-  margin: 5px 5px 0px 5px;
-}
-
-.company_name {
-  color: #2283c9;
-  font-family: Verdana;
-  font-weight: bold;
-  font-size: 2.2rem;
-  margin: 0px;
 }
 
 .form_container {

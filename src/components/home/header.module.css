@@ -6,10 +6,12 @@
   height: 60px;
   border-bottom: 1px solid #2283c9;
   box-shadow: 1px 1px 5px;
+  position: absolute;
+  top: 0px;
 }
 
 .header_container {
-  width: 100%;
+  width: 1120px;
   display: flex;
   justify-content: space-between;
   padding: 5px;
@@ -25,6 +27,8 @@
 .company_logo {
   margin: 0px 10px;
   padding: 2px;
+  max-width: 200px;
+  max-height: 43px;
 }
 
 .company_name {
@@ -46,46 +50,15 @@
   align-items: center;
 }
 
-.btn {
-  cursor: pointer;
-  color: #fff;
+.main_nav {
+  padding: 18px;
+  font-size: 12px;
+  text-transform: uppercase;
   text-decoration: none;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  font-size: 1rem;
-  line-height: 1.5;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  text-transform: none;
-  margin: 1px 5px;
-  width: 120px;
-  border-radius: 5px;
-  padding: 2px 5px;
+  color: #2283c9;
+  transition: color 0.15s ease-in-out;
 }
 
-.btn_primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn_primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
-
-.btn_danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.btn_danger:hover {
-  background-color: #c82333;
-  border-color: #bd2130;
+.main_nav:hover {
+  color: #60b0f4;
 }

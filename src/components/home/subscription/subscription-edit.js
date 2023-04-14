@@ -9,7 +9,7 @@ import ReactForm from '../../../assets/react-form';
 import LoaderGif from '../../../assets/loader-gif';
 import { SCHEMA, INPUTLIST } from './resources';
 
-const EditClinicPage = () => {
+const EditSubscriptionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,20 +18,20 @@ const EditClinicPage = () => {
   const token = useSelector((state) => state.user.userData.token);
 
   useEffect(() => {
-    status === 'success' && navigate('/clinic');
+    status === 'success' && navigate('/subscription');
   }, [status, navigate]);
 
   useEffect(() => {
-    dispatch(getClinicData({ method: 'get', url: `clinic/${id}`, token }));
+    dispatch(getClinicData({ method: 'get', url: `subscription/${id}`, token }));
   }, [dispatch, token, id]);
 
   const onSubmitHandler = (payload) => {
-    dispatch(updateClinic({ method: 'patch', url: `clinic/${id}`, token, data: { ...payload, accountId: clinicData.accountId } }));
+    dispatch(updateClinic({ method: 'patch', url: `subscription/${id}`, token, data: payload }));
   };
 
   const onCancelHandler = () => {
     if (window.confirm('Are you sure you want to cancel')) {
-      navigate('/clinic');
+      navigate('/subscription');
     }
   };
 
@@ -40,10 +40,17 @@ const EditClinicPage = () => {
       {status === 'loading' ? (
         <LoaderGif />
       ) : (
-        <ReactForm title={'Edit Clinic'} layout={INPUTLIST} schema={SCHEMA} onCancel={onCancelHandler} onSubmit={onSubmitHandler} defaultValues={clinicData} />
+        <ReactForm
+          title={'Edit Subscription'}
+          layout={INPUTLIST}
+          schema={SCHEMA}
+          onCancel={onCancelHandler}
+          onSubmit={onSubmitHandler}
+          defaultValues={clinicData}
+        />
       )}
     </>
   );
 };
 
-export default EditClinicPage;
+export default EditSubscriptionPage;

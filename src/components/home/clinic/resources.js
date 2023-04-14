@@ -23,7 +23,7 @@ export const SCHEMA = yup.object().shape({
   faxNumber: yup.string(),
 });
 
-export const INPUTS = [
+export const INPUTLIST = [
   { type: 'text', name: 'clinicName', label: 'Clinic Name' },
   { type: 'text', name: 'address', label: 'Address' },
   { type: 'text', name: 'barangay', label: 'Barangay' },

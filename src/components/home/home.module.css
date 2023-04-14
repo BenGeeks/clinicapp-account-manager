@@ -10,6 +10,7 @@
 .inner_container {
   display: flex;
   width: 100%;
+  margin-top: 60px;
 }
 
 .side_bar {

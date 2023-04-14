@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { userLogIn } from '../../store/slices/user';
 
-import mainLogo from '../../assets/images/mainLogo.png';
+import Header from '../home/header';
 import loaderGif from '../../assets/images/loader.gif';
 import styles from './login.module.css';
 
@@ -26,11 +26,8 @@ const LoginPage = () => {
 
   return (
     <div className={styles.background}>
+      <Header />
       <div className={styles.container}>
-        <div className={styles.logo_container}>
-          <img className={styles.logo} src={mainLogo} alt="logo" />
-          <h1 className={styles.company_name}>The Clinic App</h1>
-        </div>
         <form className={styles.form_container} onSubmit={onSubmitHandler}>
           <div className={styles.input_container}>
             <label htmlFor="emailAddress">Email Address:</label>
@@ -45,10 +42,10 @@ const LoginPage = () => {
               {status === 'loading' ? (
                 <span>
                   <img src={loaderGif} className={styles.loader_gif} alt="loader" />
-                  Signing in...
+                  Logging in...
                 </span>
               ) : (
-                'Sign In'
+                'Log In'
               )}
             </button>
           </div>
