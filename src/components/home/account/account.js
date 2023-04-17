@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import AccountListPage from './account-list';
 import EditAccountPage from './account-edit';
-import ViewAccountPage from './account-view';
+import ViewAccountPage from './account-view/account-view';
 
 const AccountPage = () => {
   return (

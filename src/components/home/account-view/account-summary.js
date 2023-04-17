@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getCompleteAccountData } from '../../../store/slices/account';
+import { getAccountSummary } from '../../../../store/slices/account';
 
-import AccountBar from '../owner-account/account-bar';
-import AccountInfo from '../owner-account/account-info';
+import AccountBar from './account-bar';
+import AccountInfo from './account-info';
 
-import styles from './account-view.module.css';
+import styles from './account.module.css';
 
-const ViewAccountPage = () => {
+const OwnerAccountPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const token = useSelector((state) => state.user.userData.token);
-  const { accountInfo, userInfo, subscriptionInfo } = useSelector((state) => state.account.completeAccountData);
+  const { accountInfo, userInfo, subscriptionInfo } = useSelector((state) => state.account.accountSummary);
+  console.log('ID: ', id);
 
   useEffect(() => {
-    dispatch(getCompleteAccountData({ method: 'get', url: `account/complete/${id}`, token }));
+    dispatch(getAccountSummary({ method: 'get', url: `accountsummary/${id}`, token }));
   }, [dispatch, token, id]);
 
-  console.log(subscriptionInfo);
   return (
     <div className={styles.account_container}>
       <AccountBar accountInfo={accountInfo} />
@@ -28,4 +28,4 @@ const ViewAccountPage = () => {
   );
 };
 
-export default ViewAccountPage;
+export default OwnerAccountPage;

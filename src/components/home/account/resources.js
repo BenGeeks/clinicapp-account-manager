@@ -1,9 +1,15 @@
 import * as yup from 'yup';
 import ColumnFilter from '../../../assets/column-filter';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 export const COLUMNS = [
-  { Header: 'Business Name', accessor: 'businessName', Filter: ColumnFilter },
+  {
+    Header: 'Business Name',
+    accessor: 'businessName',
+    Filter: ColumnFilter,
+    Cell: ({ row, value }) => <Link to={`/account/${row.original._id}`}>{value}</Link>,
+  },
   { Header: 'Subscription', accessor: 'subscription', Filter: ColumnFilter },
   { Header: 'Status', accessor: 'status', Filter: ColumnFilter },
   { Header: 'Owner', accessor: 'owner', Filter: ColumnFilter },

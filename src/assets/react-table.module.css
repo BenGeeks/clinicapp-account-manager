@@ -102,6 +102,17 @@
   padding-left: 10px;
 }
 
+.cell > a,
+.cell > a:visited,
+.cell > a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cell > a:hover {
+  color: #2283c9;
+}
+
 .icon_container {
   display: flex;
   justify-content: center;

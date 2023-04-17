@@ -20,11 +20,7 @@ export const userLogOut = createAsyncThunk('users/logoutStatus', async (action) 
 
 const initialState = {
   isLoggedIn: false,
-  userInfo: {},
   userData: {},
-  subscriptionInfo: {},
-  accountInfo: {},
-  clinicList: [],
   userList: [],
   status: 'idle',
 };
@@ -53,11 +49,7 @@ export const userSlice = createSlice({
           toast.success(message);
           state.isLoggedIn = true;
           state.userData = data;
-          state.userInfo = data.userInfo;
-          state.subscriptionInfo = data.subscriptionInfo;
-          state.accountInfo = data.accountInfo;
-          state.clinicList = data.clinicList;
-          localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access }));
+          localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access, accountId: data.accountId }));
         } else {
           state.status = 'failed';
           toast.error(message);
@@ -77,10 +69,6 @@ export const userSlice = createSlice({
           state.status = 'succeeded';
           state.isLoggedIn = true;
           state.userData = data;
-          state.userInfo = data.userInfo;
-          state.subscriptionInfo = data.subscriptionInfo;
-          state.accountInfo = data.accountInfo;
-          state.clinicList = data.clinicList;
         } else {
           toast.error(message);
           state.isLoggedIn = false;

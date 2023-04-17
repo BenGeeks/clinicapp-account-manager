@@ -22,7 +22,7 @@ export const updateAccount = createAsyncThunk('users/updateAccount', async (acti
   return await apiRequest(action);
 });
 
-export const getCompleteAccountData = createAsyncThunk('users/getCompleteAccountData', async (action) => {
+export const getAccountSummary = createAsyncThunk('users/getAccountSummary', async (action) => {
   return await apiRequest(action);
 });
 
@@ -30,7 +30,7 @@ const initialState = {
   isLoggedIn: false,
   accountList: [],
   accountData: {},
-  completeAccountData: {},
+  accountSummary: {},
   status: 'idle',
 };
 
@@ -134,23 +134,23 @@ export const accountSlice = createSlice({
       })
 
       // get complete account data
-      .addCase(getCompleteAccountData.pending, (state) => {
+      .addCase(getAccountSummary.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getCompleteAccountData.fulfilled, (state, action) => {
+      .addCase(getAccountSummary.fulfilled, (state, action) => {
         let data = action.payload.data.data ? action.payload.data.data : [];
         let message = action.payload.data.message;
         let status = action.payload.status;
         if (status === 200) {
           state.status = 'completed';
-          state.completeAccountData = data;
+          state.accountSummary = data;
         } else {
           state.status = 'failed';
           toast.error(message);
           console.log(action.payload);
         }
       })
-      .addCase(getCompleteAccountData.rejected, (state, action) => {
+      .addCase(getAccountSummary.rejected, (state, action) => {
         toast.error(action.payload.error);
         state.status = 'failed';
         console.log(action.payload);

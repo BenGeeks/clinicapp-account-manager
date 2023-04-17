@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { getClinicList } from '../../../store/slices/clinic';
 
+import LoaderGif from '../../../assets/loader-gif';
 import ReactTable from '../../../assets/react-table';
-import { COLUMNS } from './resources';
+import { COLUMNS, COLUMNS2 } from './resources';
 
 const ClinicListPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clinicList = useSelector((state) => state.clinic.clinicList);
-  const token = useSelector((state) => state.user.userData.token);
+  const status = useSelector((state) => state.clinic.status);
+  const { token, access } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
     dispatch(getClinicList({ method: 'get', url: 'clinic', token }));
@@ -31,18 +33,22 @@ const ClinicListPage = () => {
 
   return (
     <>
-      <ReactTable
-        COLUMNS={COLUMNS}
-        DATA={clinicList}
-        title={'Clinic List'}
-        enableEdit={true}
-        enableAddNew={true}
-        enableDelete={false}
-        enableView={true}
-        onEdit={onEditHandler}
-        onAddNew={onAddNewHandler}
-        onView={onViewHandler}
-      />
+      {status === 'loading' ? (
+        <LoaderGif />
+      ) : (
+        <ReactTable
+          COLUMNS={access === 'owner' ? COLUMNS2 : COLUMNS}
+          DATA={clinicList}
+          title={'Clinic List'}
+          enableEdit={true}
+          enableAddNew={true}
+          enableDelete={false}
+          enableView={true}
+          onEdit={onEditHandler}
+          onAddNew={onAddNewHandler}
+          onView={onViewHandler}
+        />
+      )}
     </>
   );
 };

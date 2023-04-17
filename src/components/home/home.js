@@ -8,7 +8,7 @@ import Header from './header';
 import Footer from './footer';
 import SideBar from './side-bar';
 
-import OwnerAccountPage from './owner-account/account';
+import ViewAccountPage from './account/account-view/account-view';
 
 import SubscriptionPage from './subscription/subscription';
 import ClinicPage from './clinic/clinic';
@@ -23,6 +23,8 @@ const SUPERUSER = 'superuser';
 
 const HomePage = () => {
   const access = useSelector((state) => state.user.userData.access);
+  const accountId = useSelector((state) => state.user.userData.accountId);
+  console.log(accountId);
 
   return (
     <div className={styles.home_main}>
@@ -32,8 +34,8 @@ const HomePage = () => {
         <Routes>
           {access === OWNER && (
             <>
-              <Route index element={<OwnerAccountPage />} />
-              <Route path="/account" element={<OwnerAccountPage />} />
+              <Route index element={<Navigate to={`/account/${accountId}`} />} />
+              <Route path="/account/:id" element={<ViewAccountPage />} />
             </>
           )}
           {(access === SUPPORT || access === SUPERUSER) && (

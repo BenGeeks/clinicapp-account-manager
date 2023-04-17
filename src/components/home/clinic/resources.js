@@ -1,9 +1,23 @@
 import * as yup from 'yup';
 import ColumnFilter from '../../../assets/column-filter';
+import { Link } from 'react-router-dom';
 
 export const COLUMNS = [
-  { Header: 'Clinic Name', accessor: 'clinicName', Filter: ColumnFilter },
-  { Header: 'Business Name', accessor: 'businessName', Filter: ColumnFilter },
+  { Header: 'Clinic Name', accessor: 'clinicName', Filter: ColumnFilter, Cell: ({ row, value }) => <Link to={`/clinic/${row.original._id}`}>{value}</Link> },
+  {
+    Header: 'Business Name',
+    accessor: 'businessName',
+    Filter: ColumnFilter,
+    Cell: ({ row, value }) => <Link to={`/account/${row.original.businessNameId}`}>{value}</Link>,
+  },
+  { Header: 'Barangay', accessor: 'barangay', Filter: ColumnFilter },
+  { Header: 'City', accessor: 'city', Filter: ColumnFilter },
+  { Header: 'Province', accessor: 'province', Filter: ColumnFilter },
+  { Header: 'Phone', accessor: 'telephone', Filter: ColumnFilter },
+];
+
+export const COLUMNS2 = [
+  { Header: 'Clinic Name', accessor: 'clinicName', Filter: ColumnFilter, Cell: ({ row, value }) => <Link to={`/clinic/${row.original._id}`}>{value}</Link> },
   { Header: 'Address', accessor: 'address', Filter: ColumnFilter },
   { Header: 'Barangay', accessor: 'barangay', Filter: ColumnFilter },
   { Header: 'City', accessor: 'city', Filter: ColumnFilter },
