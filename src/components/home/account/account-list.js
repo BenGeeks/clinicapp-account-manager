@@ -13,7 +13,7 @@ const AccountListPage = () => {
   const token = useSelector((state) => state.user.userData.token);
 
   useEffect(() => {
-    dispatch(getAccountList({ method: 'get', url: 'account', token }));
+    dispatch(getAccountList({ method: 'get', url: 'accounts', token }));
   }, [dispatch, token]);
 
   const onEditHandler = (id) => {

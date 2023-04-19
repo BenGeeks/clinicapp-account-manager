@@ -2,24 +2,33 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiRequest from '../axios/axios';
 import { toast } from 'react-toastify';
 
-export const getUserList = createAsyncThunk('users/getUserList', async (action) => {
+export const getUserList = createAsyncThunk('user/getUserList', async (action) => {
   return await apiRequest(action);
 });
 
-export const userLogIn = createAsyncThunk('users/loginStatus', async (action) => {
+export const userLogIn = createAsyncThunk('user/loginStatus', async (action) => {
   return await apiRequest(action);
 });
 
-export const verifyToken = createAsyncThunk('users/verifyToken', async (action) => {
+export const verifyToken = createAsyncThunk('user/verifyToken', async (action) => {
   return await apiRequest(action);
 });
 
-export const userLogOut = createAsyncThunk('users/logoutStatus', async (action) => {
+export const userLogOut = createAsyncThunk('user/userLogOut', async (action) => {
+  return await apiRequest(action);
+});
+
+export const resetPassword = createAsyncThunk('user/resetPassword', async (action) => {
+  return await apiRequest(action);
+});
+
+export const updatePassword = createAsyncThunk('user/updatePassword', async (action) => {
   return await apiRequest(action);
 });
 
 const initialState = {
   isLoggedIn: false,
+  emailSent: false,
   userData: {},
   userList: [],
   status: 'idle',
@@ -39,6 +48,7 @@ export const userSlice = createSlice({
       // User log in
       .addCase(userLogIn.pending, (state) => {
         state.status = 'loading';
+        state.emailSent = false;
       })
       .addCase(userLogIn.fulfilled, (state, action) => {
         let data = action.payload.data.data ? action.payload.data.data : {};
@@ -60,6 +70,7 @@ export const userSlice = createSlice({
       // Login user by token
       .addCase(verifyToken.pending, (state) => {
         state.status = 'loading';
+        state.emailSent = false;
       })
       .addCase(verifyToken.fulfilled, (state, action) => {
         let data = action.payload.data.data ? action.payload.data.data : {};
@@ -84,10 +95,49 @@ export const userSlice = createSlice({
       })
       .addCase(userLogOut.fulfilled, (state) => {
         toast.success('Successfully logged out.');
-        state.status = 'succeeded';
+        state.status = 'success';
         state.isLoggedIn = false;
         state.userInfo = {};
         localStorage.removeItem('clinicAppUserData');
+      })
+
+      // Reset Password
+      .addCase(resetPassword.pending, (state) => {
+        state.status = 'loading';
+        state.emailSent = false;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          toast.success(message);
+          state.status = 'success';
+          state.emailSent = true;
+        } else {
+          toast.error(message);
+          state.status = 'failed';
+          console.log(action.payload);
+        }
+      })
+
+      // Update Password
+      .addCase(updatePassword.pending, (state) => {
+        state.status = 'loading';
+        state.emailSent = false;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          toast.success(message);
+          state.status = 'success';
+        } else {
+          toast.error(message);
+          state.isLoggedIn = false;
+          state.status = 'failed';
+          localStorage.removeItem('clinicAppUserData');
+          console.log(action.payload);
+        }
       })
 
       // get user list

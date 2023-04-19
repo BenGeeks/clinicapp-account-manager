@@ -6,7 +6,7 @@ import { getClinicList } from '../../../store/slices/clinic';
 
 import LoaderGif from '../../../assets/loader-gif';
 import ReactTable from '../../../assets/react-table';
-import { COLUMNS, COLUMNS2 } from './resources';
+import { COLUMNS_SUP, COLUMNS_OWNER } from './resources';
 
 const ClinicListPage = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const ClinicListPage = () => {
         <LoaderGif />
       ) : (
         <ReactTable
-          COLUMNS={access === 'owner' ? COLUMNS2 : COLUMNS}
+          COLUMNS={access === 'owner' ? COLUMNS_OWNER : COLUMNS_SUP}
           DATA={clinicList}
           title={'Clinic List'}
           enableEdit={true}

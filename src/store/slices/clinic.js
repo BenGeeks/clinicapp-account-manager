@@ -18,6 +18,10 @@ export const updateClinic = createAsyncThunk('users/updateClinic', async (action
   return await apiRequest(action);
 });
 
+export const deleteClinic = createAsyncThunk('users/deleteClinic', async (action) => {
+  return await apiRequest(action);
+});
+
 const initialState = {
   isLoggedIn: false,
   clinicList: [],
@@ -137,6 +141,34 @@ export const clinicSlice = createSlice({
         }
       })
       .addCase(updateClinic.rejected, (state, action) => {
+        toast.error(action.payload.error);
+        state.status = 'failed';
+        console.log(action.payload);
+      })
+
+      // delete clinic
+      .addCase(deleteClinic.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteClinic.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : [];
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.clinicList = data;
+          state.status = 'success';
+          toast.success(message);
+        } else if (status === 401) {
+          state.status = 'failed';
+          toast.error(message);
+          state.tokenExpired = true;
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+      .addCase(deleteClinic.rejected, (state, action) => {
         toast.error(action.payload.error);
         state.status = 'failed';
         console.log(action.payload);

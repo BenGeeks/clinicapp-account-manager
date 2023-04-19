@@ -51,6 +51,7 @@
 }
 
 .main_nav {
+  cursor: pointer;
   padding: 18px;
   font-size: 12px;
   text-transform: uppercase;

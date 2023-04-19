@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserList } from '../../../store/slices/user';
 
 import ReactTable from '../../../assets/react-table';
-import ColumnFilter from '../../../assets/column-filter';
+import { COLUMNS, COLUMNS2 } from './resources';
 
 const UsersPage = () => {
   const dispatch = useDispatch();
@@ -15,26 +15,6 @@ const UsersPage = () => {
     dispatch(getUserList({ method: 'get', url: 'user', token }));
   }, [dispatch, token]);
 
-  const COLUMNS = [
-    { Header: 'Name', accessor: 'name', Filter: ColumnFilter },
-    { Header: 'Email Address', accessor: 'emailAddress', Filter: ColumnFilter },
-    { Header: 'Phone Number', accessor: 'mobileNumber', Filter: ColumnFilter },
-    { Header: 'Access', accessor: 'access', Filter: ColumnFilter },
-    { Header: 'Role', accessor: 'role', Filter: ColumnFilter },
-    { Header: 'Department', accessor: 'department', Filter: ColumnFilter },
-    { Header: 'Position', accessor: 'position', Filter: ColumnFilter },
-    { Header: 'Is Active', accessor: 'isActive', Filter: ColumnFilter },
-  ];
-
-  const COLUMNS2 = [
-    { Header: 'Name', accessor: 'name', Filter: ColumnFilter },
-    { Header: 'Business Name', accessor: 'businessName', Filter: ColumnFilter },
-    { Header: 'Email Address', accessor: 'emailAddress', Filter: ColumnFilter },
-    { Header: 'Phone Number', accessor: 'mobileNumber', Filter: ColumnFilter },
-    { Header: 'Access', accessor: 'access', Filter: ColumnFilter },
-    { Header: 'Role', accessor: 'role', Filter: ColumnFilter },
-    { Header: 'Is Active', accessor: 'isActive', Filter: ColumnFilter },
-  ];
   const onEditHandler = (id) => {
     // navigate(`/account/edit/${id}`);
   };

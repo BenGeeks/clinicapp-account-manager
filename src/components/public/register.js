@@ -36,7 +36,7 @@ const RegistrationPage = () => {
     [...data.entries()].forEach((input) => {
       payload[input[0]] = input[1];
     });
-    dispatch(createNewAccount({ method: 'post', url: 'account', token, data: payload }));
+    dispatch(createNewAccount({ method: 'post', url: 'account/new', token, data: payload }));
   };
 
   return (

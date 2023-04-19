@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { getClinicData, updateClinic } from '../../../store/slices/clinic';
+import { getSubscriptionData, updateSubscription } from '../../../store/slices/subscription';
 
 import ReactForm from '../../../assets/react-form';
 import LoaderGif from '../../../assets/loader-gif';
@@ -13,8 +13,8 @@ const EditSubscriptionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const clinicData = useSelector((state) => state.clinic.clinicData);
-  const status = useSelector((state) => state.clinic.status);
+  const subscriptionData = useSelector((state) => state.subscription.subscriptionData);
+  const status = useSelector((state) => state.subscription.status);
   const token = useSelector((state) => state.user.userData.token);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const EditSubscriptionPage = () => {
   }, [status, navigate]);
 
   useEffect(() => {
-    dispatch(getClinicData({ method: 'get', url: `subscription/${id}`, token }));
+    dispatch(getSubscriptionData({ method: 'get', url: `subscription/${id}`, token }));
   }, [dispatch, token, id]);
 
   const onSubmitHandler = (payload) => {
-    dispatch(updateClinic({ method: 'patch', url: `subscription/${id}`, token, data: payload }));
+    dispatch(updateSubscription({ method: 'patch', url: `subscription/${id}`, token, data: payload }));
   };
 
   const onCancelHandler = () => {
@@ -46,7 +46,7 @@ const EditSubscriptionPage = () => {
           schema={SCHEMA}
           onCancel={onCancelHandler}
           onSubmit={onSubmitHandler}
-          defaultValues={clinicData}
+          defaultValues={subscriptionData}
         />
       )}
     </>

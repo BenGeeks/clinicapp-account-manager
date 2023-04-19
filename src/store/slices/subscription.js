@@ -124,7 +124,7 @@ export const subscriptionSlice = createSlice({
         let status = action.payload.status;
         if (status === 200) {
           state.subscriptionList = data;
-          state.status = 'completed';
+          state.status = 'success';
           toast.success(message);
         } else if (status === 401) {
           state.status = 'failed';
@@ -152,7 +152,7 @@ export const subscriptionSlice = createSlice({
         let status = action.payload.status;
         if (status === 200) {
           state.subscriptionList = data;
-          state.status = 'completed';
+          state.status = 'success';
           toast.success(message);
         } else if (status === 401) {
           state.status = 'failed';

@@ -8,6 +8,7 @@ const HomePage = lazy(() => import('./components/home/home'));
 const LoginPage = lazy(() => import('./components/public/login'));
 const RegistrationPage = lazy(() => import('./components/public/register'));
 const SignupPage = lazy(() => import('./components/public/signup'));
+const UpdatePassword = lazy(() => import('./components/public/update-password'));
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/register/:token" element={<RegistrationPage />} />
+        <Route path="/update-password/:token" element={<UpdatePassword />} />
         {isLoggedIn ? (
           <Route path="*" element={<HomePage />} />
         ) : (
