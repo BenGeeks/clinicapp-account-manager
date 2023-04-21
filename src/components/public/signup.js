@@ -13,7 +13,7 @@ const SignupPage = () => {
   const subscriptionList = useSelector((state) => (state.subscription && state.subscription.subscriptionList ? state.subscription.subscriptionList : []));
 
   useEffect(() => {
-    dispatch(getSubscriptionList({ method: 'get', url: 'subscription' }));
+    dispatch(getSubscriptionList({ method: 'get', url: 'subscriptions' }));
   }, [dispatch]);
 
   const onSubmitHandler = (event) => {
@@ -36,8 +36,8 @@ const SignupPage = () => {
         {status !== 'success' ? (
           <form className={styles.form_container} onSubmit={onSubmitHandler}>
             <div className={styles.input_container}>
-              <label htmlFor="businessName">Business Name:</label>
-              <input type="text" name="businessName" placeholder="Business Name" required />
+              <label htmlFor="accountName">Business Name:</label>
+              <input type="text" name="accountName" placeholder="Business Name" required />
             </div>
             <div className={styles.input_container}>
               <label htmlFor="firstName">First Name:</label>

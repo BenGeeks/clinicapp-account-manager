@@ -12,7 +12,7 @@ import ViewAccountPage from './account/account-view/account-view';
 
 import SubscriptionPage from './subscription/subscription';
 import ClinicPage from './clinic/clinic';
-import UsersPage from './user/user';
+import UserPage from './user/user';
 import InvoicePage from './invoice/invoice';
 import AccountPage from './account/account';
 import DashboardPage from './dashboard/dashboard';
@@ -47,7 +47,7 @@ const HomePage = () => {
           )}
           <Route path="/clinic/*" element={<ClinicPage />} />
           <Route path="/subscription/*" element={<SubscriptionPage />} />
-          <Route path="/user" element={<UsersPage />} />
+          <Route path="/user/*" element={<UserPage />} />
           <Route path="/invoice" element={<InvoicePage />} />
 
           <Route path="*" element={<Navigate to="/" />} />

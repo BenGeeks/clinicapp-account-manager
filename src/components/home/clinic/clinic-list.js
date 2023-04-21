@@ -16,7 +16,7 @@ const ClinicListPage = () => {
   const { token, access } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
-    dispatch(getClinicList({ method: 'get', url: 'clinic', token }));
+    dispatch(getClinicList({ method: 'get', url: 'clinics', token }));
   }, [dispatch, token]);
 
   const onEditHandler = (id) => {

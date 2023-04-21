@@ -6,6 +6,10 @@ export const getUserList = createAsyncThunk('user/getUserList', async (action) =
   return await apiRequest(action);
 });
 
+export const getUserOptions = createAsyncThunk('user/getUserOptions', async (action) => {
+  return await apiRequest(action);
+});
+
 export const userLogIn = createAsyncThunk('user/loginStatus', async (action) => {
   return await apiRequest(action);
 });
@@ -31,6 +35,7 @@ const initialState = {
   emailSent: false,
   userData: {},
   userList: [],
+  userOptions: {},
   status: 'idle',
 };
 
@@ -151,6 +156,24 @@ export const userSlice = createSlice({
         if (status === 200) {
           state.status = 'succeeded';
           state.userList = data;
+        } else {
+          state.status = 'failed';
+          toast.error(message);
+          console.log(action.payload);
+        }
+      })
+
+      // get user options
+      .addCase(getUserOptions.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserOptions.fulfilled, (state, action) => {
+        let data = action.payload.data.data ? action.payload.data.data : {};
+        let message = action.payload.data.message;
+        let status = action.payload.status;
+        if (status === 200) {
+          state.status = 'succeeded';
+          state.userOptions = data;
         } else {
           state.status = 'failed';
           toast.error(message);

@@ -15,7 +15,7 @@ const SubscriptionListPage = () => {
   const access = useSelector((state) => state.user.userData.access);
 
   useEffect(() => {
-    dispatch(getSubscriptionList({ method: 'get', url: 'subscription' }));
+    dispatch(getSubscriptionList({ method: 'get', url: 'subscriptions' }));
   }, [dispatch]);
 
   const onEditHandler = (id) => {
