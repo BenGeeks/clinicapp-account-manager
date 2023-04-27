@@ -136,6 +136,9 @@ export const userSlice = createSlice({
         if (status === 200) {
           toast.success(message);
           state.status = 'success';
+        } else if (status === 401) {
+          state.status = 'expired';
+          toast.error('Reset password token has expired!');
         } else {
           toast.error(message);
           state.isLoggedIn = false;

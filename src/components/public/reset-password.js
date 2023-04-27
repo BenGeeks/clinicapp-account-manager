@@ -1,33 +1,23 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { updatePassword } from '../../store/slices/user';
+import { resetPassword } from '../../store/slices/user';
 import ReactForm from './react-form';
 
 import styles from './login.module.css';
 import loaderGif from '../../assets/images/loader.gif';
 
-const UpdatePassword = () => {
+const ResetPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useParams();
   const status = useSelector((state) => state.user.status);
 
-  const INPUT = [
-    { type: 'password', name: 'password', label: 'Password' },
-    { type: 'password', name: 'confirmPassword', label: 'Confirm Password' },
-  ];
+  const INPUT = [{ type: 'email', name: 'emailAddress', label: 'Email Address' }];
 
   const SCHEMA = yup.object().shape({
-    password: yup
-      .string()
-      .required('Please provide a valid password.')
-      .min(8, 'Must be more that 8 characters.')
-      .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/, 'Should contain 1 number and 1 special character.')
-      .max(30, 'Should not exceed 30 characters'),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords did not match.'),
+    emailAddress: yup.string().required('Email address is required.').email('Please enter a valid email address'),
   });
 
   useEffect(() => {
@@ -36,14 +26,14 @@ const UpdatePassword = () => {
   }, [navigate, status]);
 
   const onSubmitHandler = (data) => {
-    dispatch(updatePassword({ method: 'patch', url: 'user/update-password', token, data }));
+    console.log('this has been triggered: ', data);
+    dispatch(resetPassword({ method: 'post', url: 'user/reset-password', data }));
   };
-
   const secondaryButtonHandler = () => navigate('/');
 
   return (
     <ReactForm
-      title={'Update Password'}
+      title={'Reset Password'}
       layout={INPUT}
       schema={SCHEMA}
       secondaryButtonText={'Cancel'}
@@ -54,14 +44,14 @@ const UpdatePassword = () => {
         status === 'loading' ? (
           <span>
             <img src={loaderGif} className={styles.loader_gif} alt="loader" />
-            Updating...
+            Generating email...
           </span>
         ) : (
-          'Update'
+          'Reset Password'
         )
       }
     />
   );
 };
 
-export default UpdatePassword;
+export default ResetPasswordPage;

@@ -8,6 +8,7 @@ const HomePage = lazy(() => import('./components/home/home'));
 const LoginPage = lazy(() => import('./components/public/login'));
 const RegistrationPage = lazy(() => import('./components/public/register'));
 const SignupPage = lazy(() => import('./components/public/signup'));
+const ResetPassword = lazy(() => import('./components/public/reset-password'));
 const UpdatePassword = lazy(() => import('./components/public/update-password'));
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <Suspense>
       <Routes>
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/reset-password/" element={<ResetPassword />} />
         <Route path="/register/:token" element={<RegistrationPage />} />
         <Route path="/update-password/:token" element={<UpdatePassword />} />
         {isLoggedIn ? (
