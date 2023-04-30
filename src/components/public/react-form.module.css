@@ -213,3 +213,16 @@
   color: #0069d9;
   text-decoration: none;
 }
+
+.information_container {
+  padding: 10px;
+  background-color: rgb(255, 249, 241);
+  border-radius: 3px;
+}
+
+.information_message {
+  font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #282829;
+  text-align: center;
+}

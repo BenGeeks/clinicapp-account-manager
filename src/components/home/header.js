@@ -32,7 +32,7 @@ const Header = () => {
           <NavLink to="https://clinicapp.online/" className={styles.main_nav}>
             Home
           </NavLink>
-          <NavLink to="https://clinicapp.online/register/" className={styles.main_nav}>
+          <NavLink to="https://account.clinicapp.online/signup/" className={styles.main_nav}>
             Register
           </NavLink>
           <NavLink to="https://app.clinicapp.online/" className={styles.main_nav}>

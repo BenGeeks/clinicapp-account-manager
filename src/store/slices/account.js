@@ -75,6 +75,10 @@ export const accountSlice = createSlice({
           toast.success(message);
           state.status = 'success';
           localStorage.setItem('clinicAppUserData', JSON.stringify({ _id: data._id, token: data.token, access: data.access }));
+        } else if (status === 401) {
+          state.status = 'expired';
+          toast.error('Your Token has expired. Please Register again.');
+          state.tokenExpired = true;
         } else {
           state.status = 'failed';
           toast.error(message);

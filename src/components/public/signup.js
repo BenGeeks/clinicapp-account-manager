@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import * as yup from 'yup';
+
 import { signup } from '../../store/slices/account';
 import { getSubscriptionList } from '../../store/slices/subscription';
 
-import mainLogo from '../../assets/images/mainLogo.png';
+import ReactForm from './react-form';
+
 import loaderGif from '../../assets/images/loader.gif';
 import styles from './signup.module.css';
 
@@ -12,93 +15,70 @@ const SignupPage = () => {
   const status = useSelector((state) => state.account.status);
   const subscriptionList = useSelector((state) => (state.subscription && state.subscription.subscriptionList ? state.subscription.subscriptionList : []));
 
+  const SCHEMA = yup.object().shape({
+    accountName: yup.string().required('Account or Business name is required'),
+    firstName: yup.string().required('First name is required'),
+    lastName: yup.string().required('Last name is required'),
+    emailAddress: yup.string().required('Email Address is required').email('Please enter a valid email'),
+    password: yup
+      .string()
+      .required('Please provide a valid password.')
+      .min(8, 'Must be more that 8 characters.')
+      .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/, 'Should contain 1 number and 1 special character.')
+      .max(30, 'Should not exceed 30 characters'),
+    mobileNumber: yup.string().required('Phone or mobile number is required'),
+    subscription: yup.string().required('Please select a subscription'),
+  });
+
+  const INPUT = [
+    { type: 'text', name: 'accountName', label: 'Account or Business Name' },
+    { type: 'text', name: 'firstName', label: 'First Name' },
+    { type: 'text', name: 'lastName', label: 'Last Name' },
+    { type: 'email', name: 'emailAddress', label: 'Email Address' },
+    { type: 'password', name: 'password', label: 'Password' },
+    { type: 'text', name: 'mobileNumber', label: 'Mobile Number' },
+    { type: 'select', name: 'subscription', label: 'Subscription', options: subscriptionList },
+  ];
+
+  const INFORMATION = `
+    You have successfully completed the first part of the registration.
+    To proceed, please check your email and click the link that was provided.
+    IMPORTANT: The link will expire in one hour.
+    `;
+
   useEffect(() => {
     dispatch(getSubscriptionList({ method: 'get', url: 'subscriptions' }));
   }, [dispatch]);
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    let payload = {};
-    const data = new FormData(event.target);
-    [...data.entries()].forEach((input) => {
-      payload[input[0]] = input[1];
-    });
-    dispatch(signup({ method: 'post', url: 'account/signup', data: payload }));
+  const onSubmitHandler = (data) => {
+    dispatch(signup({ method: 'post', url: 'account/signup', data }));
   };
 
   return (
-    <div className={styles.background}>
-      <div className={styles.container}>
-        <div className={styles.logo_container}>
-          <img className={styles.logo} src={mainLogo} alt="logo" />
-          <h1 className={styles.company_name}>The Clinic App</h1>
-        </div>
-        {status !== 'success' ? (
-          <form className={styles.form_container} onSubmit={onSubmitHandler}>
-            <div className={styles.input_container}>
-              <label htmlFor="accountName">Business Name:</label>
-              <input type="text" name="accountName" placeholder="Business Name" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="firstName">First Name:</label>
-              <input type="text" name="firstName" placeholder="First Name" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="lastName">Last Name:</label>
-              <input type="text" name="lastName" placeholder="Last Name" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="emailAddress">Email Address:</label>
-              <input type="email" name="emailAddress" placeholder="Email Address" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="password">Password:</label>
-              <input type="password" name="password" placeholder="Password" minLength="8" maxLength="30" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="mobile">Mobile Number:</label>
-              <input type="tel" name="mobileNumber" placeholder="0999 951 7856" required />
-            </div>
-            <div className={styles.input_container}>
-              <label htmlFor="subscription">Subscription:</label>
-              <select name="subscription" required>
-                <option value="" disabled>
-                  -- Select Subscription --
-                </option>
-                {subscriptionList.map((option) => {
-                  return (
-                    <option key={option._id} value={option._id}>
-                      {option.subscriptionName}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className={styles.button_container}>
-              <button className={styles.btn} type="submit" disabled={status === 'loading'}>
-                {status === 'loading' ? (
-                  <span>
-                    <img src={loaderGif} className={styles.loader_gif} alt="loader" />
-                    Generating email link...
-                  </span>
-                ) : (
-                  'Sign Up'
-                )}
-              </button>
-            </div>
-          </form>
-        ) : (
-          <div className={styles.success_message_container}>
-            <p className={styles.success_message}>
-              You have successfully completed the first part of the registration. <br />
-              To proceed, please check your email and click the link that was provided.
-              <br />
-              <br /> <strong>IMPORTANT: </strong> The link will expire in one hour.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
+    <>
+      {status !== 'success' ? (
+        <ReactForm
+          title={'Register'}
+          layout={INPUT}
+          schema={SCHEMA}
+          secondaryButtonText={''}
+          onSubmit={onSubmitHandler}
+          buttonIsDisabled={status === 'loading'}
+          buttonText={
+            status === 'loading' ? (
+              <span>
+                <img src={loaderGif} className={styles.loader_gif} alt="loader" />
+                Generating email link...
+              </span>
+            ) : (
+              'Sign Up'
+            )
+          }
+        />
+      ) : (
+        <ReactForm title={'Register'} isInformation={true} information={INFORMATION} />
+      )}
+    </>
   );
 };
 
